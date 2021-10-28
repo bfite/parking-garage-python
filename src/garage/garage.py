@@ -11,4 +11,16 @@ class Garage:
         self.levels = levels or []
 
     def add_vehicles(self, vehicles: List[Vehicle] = None) -> List[Vehicle]:
-        return []
+        rejected = []
+        for vehicle in vehicles:
+            if self.add_vehicle(vehicle) is False:
+                rejected.append(vehicle)
+        return rejected
+
+    def add_vehicle(self, vehicle):
+        for level in self.levels:
+                for space in level.spaces:
+                    if space.vehicle == None:
+                        space.vehicle = vehicle
+                        return True
+        return False
